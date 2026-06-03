@@ -10,6 +10,9 @@ Project: Implementing Local Search Algorithms for a Sensor Placement Optimizatio
 from env.grid_world import GridWorld
 from search.hill_climbing import HillClimbing
 from search.simulated_annealing import SimulatedAnnealing
+from search.genetic_algorithm import GeneticAlgorithm
+from search.beam_search import BeamSearch
+from search.tabu_search import TabuSearch
 from utils import represent
 
 import re
@@ -57,19 +60,16 @@ def run_algorithms(world, initial_state, algorithm_classes):
 
 if __name__ == "__main__":
     
-    # Load the grid world map configuration (e.g., "map1")
     world = GridWorld("map1")
-
-    # TODO: Add your bonus algorithm classes to this list (e.g., GeneticAlgorithm, BeamSearch, TabuSearch)
+    
     algorithm_classes = [
         HillClimbing,
-        SimulatedAnnealing
+        SimulatedAnnealing,
+        GeneticAlgorithm,
+        BeamSearch,
+        TabuSearch,
     ]
-
-    # TODO: Initialize and assign the starting state for the experiments.
-    # Note: For a fair comparison, all algorithms must start from the exact same initial configuration.
-    # Hint: You can use the initialize_state() method implemented in your search classes.
-    initial_state = ...
-
-    # Run the evaluation pipeline
+    
+    initial_state = HillClimbing(world).initialize_state()
+    
     run_algorithms(world, initial_state, algorithm_classes)
