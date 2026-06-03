@@ -7,11 +7,17 @@ class HillClimbing(LocalSearchBase):
         num_neighbors = 25
         max_side = 12
 
+        evals = []
+        history = []
+
         currentstate = list(initial_state)
         currentcost = self.evaluate(currentstate)
         sidemoves = 0
 
         for i in range(max_iters):
+            evals.append(currentcost)
+            history.append(list(currentstate))
+
             neighbors = []
 
             for j in range(num_neighbors):
@@ -40,4 +46,4 @@ class HillClimbing(LocalSearchBase):
             else:
                 break
 
-        return currentstate, currentcost
+        return currentstate, currentcost, evals, history
