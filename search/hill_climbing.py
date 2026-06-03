@@ -1,12 +1,15 @@
 from search.local_search_base import LocalSearchBase
 
+
 class HillClimbing(LocalSearchBase):
     def run(self, initial_state):
         max_iters = 300
         num_neighbors = 25
+        max_side = 12
 
         currentstate = list(initial_state)
         currentcost = self.evaluate(currentstate)
+        sidemoves = 0
 
         for i in range(max_iters):
             neighbors = []
@@ -27,6 +30,13 @@ class HillClimbing(LocalSearchBase):
             if bestNcost < currentcost:
                 currentstate = bestN
                 currentcost = bestNcost
+                sidemoves = 0
+
+            elif bestNcost == currentcost and sidemoves < max_side:
+                currentstate = bestN
+                currentcost = bestNcost
+                sidemoves += 1
+
             else:
                 break
 
